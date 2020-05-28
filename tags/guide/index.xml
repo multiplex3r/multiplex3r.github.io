@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>guide on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/guide/</link>
+    <description>Recent content in guide on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 22 Nov 2014 14:37:10 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/guide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OpenPGP and Mac OS X</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-22-openpgp-and-mac-os-x/</link>
+      <pubDate>Sat, 22 Nov 2014 14:37:10 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-22-openpgp-and-mac-os-x/</guid>
+      <description>&lt;p&gt;Over the last few months I&amp;rsquo;ve been experimenting with Mac OS X&amp;rsquo;s Mail.app and GPGSuite for Mac. During the period of the Beta and Developer previews of OS X Yosemite, GPGMail was unusable and crashed Mail. This sent me on a search for either a better Mail client on OS X or a better way to do OpenPGP on OS X. This is a post about my journey to the command line and back again.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

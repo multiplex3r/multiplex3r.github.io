@@ -18,16 +18,197 @@
   </url>
   
   <url>
+    <loc>https://multiplex3r.github.io/tags/antivirus/</loc>
+    <lastmod>2017-08-31T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/antivirus-shenanigans/</loc>
+    <lastmod>2017-08-31T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/pentesting/</loc>
+    <lastmod>2017-08-31T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/</loc>
+    <lastmod>2017-08-31T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</loc>
+    <lastmod>2017-02-15T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/metasploit/</loc>
+    <lastmod>2017-02-15T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/msf/</loc>
+    <lastmod>2017-02-15T08:27:46+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/penetration-testing/</loc>
+    <lastmod>2016-10-14T11:12:22+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</loc>
+    <lastmod>2016-10-14T11:12:22+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/io/</loc>
+    <lastmod>2016-07-31T21:17:55+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/smash-the-stack/</loc>
+    <lastmod>2016-07-31T21:17:55+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2016-07-31-smash-the-stack-level01/</loc>
+    <lastmod>2016-07-31T21:17:55+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2016-01-31-sectalks-0x00-workspaces-and-you/</loc>
+    <lastmod>2016-01-31T12:31:58+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/beginner/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/code-injection/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/command-injection/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/directory-traversal/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/file-upload/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/ldap-attacks/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/lfi/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/rfi/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/web/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2015-10-13-web-for-pentester-directory-traversal/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/xml-attacks/</loc>
+    <lastmod>2015-10-13T10:32:00+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/offence/</loc>
+    <lastmod>2015-02-16T10:14:43+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/sqli/</loc>
+    <lastmod>2015-02-16T10:14:43+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</loc>
+    <lastmod>2015-02-16T10:14:43+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2015-02-15-web-for-pentester-xss/</loc>
+    <lastmod>2015-02-15T17:53:09+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/xss/</loc>
+    <lastmod>2015-02-15T17:53:09+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/defence/</loc>
+    <lastmod>2014-11-22T14:37:10+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/guide/</loc>
+    <lastmod>2014-11-22T14:37:10+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2014-11-22-openpgp-and-mac-os-x/</loc>
+    <lastmod>2014-11-22T14:37:10+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/privacy/</loc>
+    <lastmod>2014-11-22T14:37:10+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2014-11-18-sea-surfing-with-csrf/</loc>
+    <lastmod>2014-11-18T12:59:38+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2014-11-08-xss-for-beginners/</loc>
+    <lastmod>2014-11-08T17:00:25+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/tags/ctf/</loc>
+    <lastmod>2014-11-01T21:34:09+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://multiplex3r.github.io/posts/2014-11-01-ctf-mode-activate/</loc>
+    <lastmod>2014-11-01T21:34:09+11:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://multiplex3r.github.io/about/</loc>
     <lastmod>2014-02-15T09:38:14+11:00</lastmod>
   </url>
   
   <url>
     <loc>https://multiplex3r.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://multiplex3r.github.io/tags/</loc>
   </url>
   
 </urlset>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LDAP attacks on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/ldap-attacks/</link>
+    <description>Recent content in LDAP attacks on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 13 Oct 2015 10:32:00 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/ldap-attacks/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web for Pentester ../../Directory%20Traversal</title>
+      <link>https://multiplex3r.github.io/posts/2015-10-13-web-for-pentester-directory-traversal/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-10-13-web-for-pentester-directory-traversal/</guid>
+      <description>&lt;p&gt;This post is going to cover the Web for Pentester directory traversal examples. I am going to go through the source code of the examples and explain the vulnerabilities and how to exploit them.&lt;/p&gt;
+&lt;p&gt;Here be spoilers! Don&amp;rsquo;t read on if you don&amp;rsquo;t want to see the answers.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

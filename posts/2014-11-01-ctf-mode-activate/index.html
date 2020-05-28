@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CTF mode activate! // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="CTF mode activate!" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/2014-11-01-ctf-mode-activate/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">CTF mode activate!</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/2014-11-01-ctf-mode-activate/" class="article-date">
+                <time datetime='2014-11-01T21:34:09.000&#43;11:00' itemprop="datePublished">2014-11-01</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>I love CTF&rsquo;s! And I love my MBP. So it&rsquo;s logical to assume that I love CTFing from my MBP. These are some *cough opsec* of the things I do to secure my MBP when I&rsquo;m attached to a CTF network. You could use these tips to help you harden your $(laptop of choice) when you&rsquo;re connected to any potentially hostile network.</p>
+<h3 id="network-monkey">Network Monkey!?</h3>
+<p>Having been a network monkey for so long; nothing makes me feel at home quite like sitting in front of <a href="https://www.wireshark.org/" title="Go Deep.">Wireshark</a>. It&rsquo;s like watching a freeway; every packet has a job to do and is destined for some distant router somewhere. You should use a tool like Wireshark to verify that there are no noisey services on your machine.</p>
+<h4 id="wireshark">Wireshark.</h4>
+<p>Inbound Traffic.. Being able to filter using &lsquo;ip.src=={yourip}&rsquo; is a big help and that will quickly do away with the notorious Dropbox spam (you know who you are :P) and other not immediately important broadcast and multicast traffic.</p>
+<p>Outbound. Outbound. Out bound.. Yes you should watch outbound traffic. If it doesn&rsquo;t match what you are doing then some service is being noisy and needs to be silenced. Keep an eye out for any update traffic. Then go through and silence any service that broadcasts it&rsquo;s presence. Using my firewall I generally only see outbound traffic in response to something I&rsquo;ve done but I will touch on that later.</p>
+<p>Wireshark has <a href="http://www.cvedetails.com/vulnerability-list/vendor_id-4861/product_id-8292/Wireshark-Wireshark.html">MANY</a> bugs. So.. Make sure you&rsquo;re running the latest version. Also make sure you&rsquo;re not running it as root.</p>
+<h4 id="firewalls">Firewalls.</h4>
+<p>Personally I run <a href="http://www.obdev.at/products/littlesnitch/index.html" title="Protect your privacy">LittleSnitch</a> and have 2 profiles available at any one time. The first is a very restrictive and very cumbersome to setup CTF profile. The second is a less restrictive &lsquo;Trusted Network&rsquo; profile.</p>
+<p>Digging into my CTF profile..</p>
+<p>Inbound. Block every thing. Then go through and allow your malicious javascript landing page when and only when you need it. Remember to turn it off when you&rsquo;re not serving up some goodies.</p>
+<p>Outbound. Block every thing. Then go through and allow your tools one by one. This is time consuming yes. But it is the best way to be sure that service x is not trying to talk to all members of the hostile network and tell them what you had for breakfast this morning.. Be sure to block all traffic to multicast addresses also. mDNS is loud.</p>
+<h4 id="services">Services.</h4>
+<p>Turn it off! If you&rsquo;re not using it, turn it off.</p>
+<h4 id="routing">Routing.</h4>
+<p>There have been times where I will need to be connected to 2 networks at the same time. Such as looking up a vuln or looking up some cute cat wallpapers.. But have not wanted to send this out over the CTF (untrusted) network.</p>
+<p>Secure (trusted) network. Setup a trusted network, personally I use a USB cable to tether my phone (which has also got Wi-Fi and Bluetooth disabled). Then I go ahead and connect back to my VPN service and resume normal internet use. Make sure to set this gateway as the default route and have it with the lowest metric of all your enabled NIC&rsquo;s. This is easy to do with OS X and is simply a matter of dragging it up to the top of the list via System Preferences &gt; Network &gt; Set Service Order.</p>
+<p><img src="/images/01_11_2014/setserviceorder.png" alt="Set Service Order."></p>
+<p>Unsecure (untrusted) network. Essentially you want as little traffic to traverse this network as possible unless it is explicitly allowed.</p>
+<h4 id="hardware">Hardware.</h4>
+<p>Turn it off!</p>
+<p>No need for wifi!</p>
+<p>No need for Bluetooth!</p>
+<h4 id="minimise-attack-surface">Minimise attack surface.</h4>
+<p>To summarise, CTF networks are exceptionally hostile places with skilled adversaries. Minimisation of attack surface is not a guarantee that you won&rsquo;t get popped; it just lowers the risk. You should still have a clean baseline+config backup to revert to after the CTF (after saving your notes/learnings of course!)</p>
+<p>Remember: Turn it off!</p>
+<p>Go minimal!</p>
+<p>Don&rsquo;t log into internet banking through the untrusted network!</p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#network-monkey">Network Monkey!?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/ctf">CTF
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/beginner">beginner
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/defence">defence
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/2014-11-08-xss-for-beginners/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            XSS for beginners!
+        </div>
+    </a>
+    
+    
+    <a href="/about/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">About me&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>offence on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/offence/</link>
+    <description>Recent content in offence on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 16 Feb 2015 10:14:43 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/offence/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web for Pentester SQLi</title>
+      <link>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</link>
+      <pubDate>Mon, 16 Feb 2015 10:14:43 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</guid>
+      <description>&lt;p&gt;Welcome back to another installment of Web for Pentester I. This post is going to go over the SQL Injection examples. Manually iterating over SQLi can be quite a complex subject, however, thankfully there are many tools availble to help us in this endeavour. Personally, I use SQLMap and Burp Suite pro.&lt;/p&gt;
+&lt;p&gt;Warning! Spoilers ahead!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Web for Pentester XSS!</title>
+      <link>https://multiplex3r.github.io/posts/2015-02-15-web-for-pentester-xss/</link>
+      <pubDate>Sun, 15 Feb 2015 17:53:09 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-02-15-web-for-pentester-xss/</guid>
+      <description>Hi Y&amp;rsquo;all! Sorry, it&amp;rsquo;s been a long while since my last post.. I&amp;rsquo;ve been doing CTP and changing jobs and what not, so been pretty busy. This post is about the challenge series Web for Pentester specifically the XSS challenges, made by Louis Nyffenegger @ PentesterLab.
+Beware, spoilers!
+So you want to get into web apps? Well, PentesterLab is a place for you to go and learn enough Web App Kung Fu to get started.</description>
+    </item>
+    
+    <item>
+      <title>Sea Surfing with CSRF</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-18-sea-surfing-with-csrf/</link>
+      <pubDate>Tue, 18 Nov 2014 12:59:38 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-18-sea-surfing-with-csrf/</guid>
+      <description>&lt;p&gt;I had originally intended to do one post that covered both XSS and CSRF, however I decided in the end to break them into two separate posts. This post will be a basic guide to CSRF and as I am a visual learner, a bit of a story that draws a picture in my minds eye about how it all comes together.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XSS for beginners!</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-08-xss-for-beginners/</link>
+      <pubDate>Sat, 08 Nov 2014 17:00:25 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-08-xss-for-beginners/</guid>
+      <description>&lt;p&gt;This post is going to go into one of the most common web attacks and how you can try it for yourself. The attack is the notorious Cross-site Scripting attack. I say notorious, because it&amp;rsquo;s 2014. Why are we still seeing this out in the wild? Sanitise your inputs people!&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

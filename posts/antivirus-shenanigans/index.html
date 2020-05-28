@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Antivirus Shenanigans // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="Antivirus Shenanigans" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/antivirus-shenanigans/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Antivirus Shenanigans</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/antivirus-shenanigans/" class="article-date">
+                <time datetime='2017-08-31T08:27:46.000&#43;10:00' itemprop="datePublished">2017-08-31</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>At <a href="https://www.sectalks.org/melbourne/">SecTalks Melbourne 0x10</a> I presented a few slides from my Malware Reverse Engineering conference presentation from a few months ago. I talked through reasons why as penetration testers we want to avoid being detected (longer time to find the sweet loot etc). And how we can use AV evasion to assist in the effort of remaining undetected. After which we did a workshop and challenge on the topic. Fun times :)</p>
+<p>In this blog post I&rsquo;m going to rehash some of the material from the talk and workshop so that you, dear reader, can follow along at home.</p>
+<h3 id="the-setup">The Setup</h3>
+<p>So a few tools are needed to start building the harnesses and tools used in AV evasion. Personally I use the following, however you can use any other build environment you like, so long as you can make windows binaries you can follow along.</p>
+<ul>
+<li><a href="http://www.mingw.org">MinGW</a></li>
+<li><a href="https://www.winehq.org">Wine</a></li>
+<li><a href="https://www.xquartz.org">XQuartz (macOS)</a></li>
+<li><a href="https://brew.sh">Homebrew (macOS)</a></li>
+</ul>
+<p>MinGW allows us to compile our C code for Windows machines from our macOS or Linux machines and Wine allows us to test the payloads we create without having to fire up a full on VM. On my mac I also use XQuartz for windowing wine and brew to install MinGW (<code>brew install mingw-w64</code>) and Wine (<code>brew install wine</code>).</p>
+<p>The only other thing we need is a replacement for <code>calc.exe</code> as this is not a thing in Wine and thus, will make &ldquo;popping calc&rdquo; to demonstrate code execution challenging. We can however use a <a href="https://gist.github.com/multiplex3r/c12d905280f3df6da00f1a4c83741862">simple C program</a> to demonstrate this for us.</p>
+<p>The linked source code can be built with <code>i686-w64-mingw32-gcc popup.c -o popup.exe</code>. Now when we run this in Wine, we should see a popup box being displayed via XQuartz.</p>
+<p><img src="https://multiplex3r.github.com/images/31_08_2017/fig1.png" alt="Pwnd!" title="Pwnd!"></p>
+<h3 id="the-harness">The Harness</h3>
+<p>Ok, so now we have everything we need setup, so go ahead and create a WinExec payload using msfvenom. The command we use to do this initially will be <code>./msfvenom -p windows/exec CMD=popup.exe -f exe -o ~/pwn.exe</code>. This will give us a stock binary to scan on VirusTotal.</p>
+<p><img src="https://multiplex3r.github.com/images/31_08_2017/fig2.png" alt="Pwnd!" title="Pwnd!"></p>
+<p>As you can see, the results are not good from a Penetration Testers point of view. However, we can work to lower this by instead outputing shellcode, and executing it out of our own <a href="https://gist.github.com/multiplex3r/16e3db31d34993a30e04eaec8c3aac41">shellcode harness</a>. Go ahead and regenerate your shellcode using <code>./msfvenom -p windows/exec CMD=popup.exe -f c</code>. Now add this shellcode to the harness and then compile it using mingw <code>i686-w64-mingw32-gcc harness.c -o harness.exe </code>(macOS).</p>
+<p>Now if your <code>popup.exe</code> and <code>harness.exe</code> are in the same directory, when we execute <code>harness.exe</code> with wine, we should see our popup. This means that our harness is working. If we go ahead and upload this to VirusTotal, we can see that the detection rate has dropped down by a bit.</p>
+<p><img src="https://multiplex3r.github.com/images/31_08_2017/fig3.png" alt="Pwnd!" title="Pwnd!"></p>
+<h3 id="encrypting-the-shellcode">Encrypting the shellcode</h3>
+<p>Next up, we need a way to go about encrypting the shellcode within the binary. To do this, we can use <a href="https://gist.github.com/multiplex3r/468eb3d277317ac0c2a868281fe66c5c">a python script</a> to XOR the shellcode with a random key and then decrypt it before we execute it with a <a href="https://gist.github.com/multiplex3r/a14b8c0199b488a58022a16b738f2c27">decrypt function</a> in our harness.</p>
+<p>This should get you to a baseline where you can use your imagination to come up with ways to bypass hueristics and lower your detection score using various evasion techniques, or use google.</p>
+<p>I hope you enjoyed the post :)</p>
+<p><img src="https://multiplex3r.github.com/images/31_08_2017/fig4.gif" alt="Stealth is mandatory for this mission" title="Stealth is mandatory for this mission"></p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#the-setup">The Setup</a></li>
+        <li><a href="#the-harness">The Harness</a></li>
+        <li><a href="#encrypting-the-shellcode">Encrypting the shellcode</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/antivirus">AntiVirus
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/pentesting">Pentesting
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/got_the_ntds_dit_now_what/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Got the NTDS.dit. Now what?
+        </div>
+    </a>
+    
+    
+    <a href="/posts/dont-run-metasploit-as-root/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Dont run Metasploit as root..&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

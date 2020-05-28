@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MSF on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/msf/</link>
+    <description>Recent content in MSF on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 15 Feb 2017 08:27:46 +1000</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/msf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dont run Metasploit as root..</title>
+      <link>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</link>
+      <pubDate>Wed, 15 Feb 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</guid>
+      <description>&lt;p&gt;Ah Metasploit. Easily one of my favourite tools. As recently disclosed by &lt;a href=&#34;https://twitter.com/justinsteven&#34;&gt;@justinsteven&lt;/a&gt; there were &lt;a href=&#34;https://github.com/justinsteven/advisories/blob/master/2017_metasploit_meterpreter_dir_traversal_bugs.md&#34;&gt;vulnerabilities&lt;/a&gt; within MSF that mean really bad things could happen if MSF is running as root (default Kali cough).. This post is going to detail my Metasploit setup.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

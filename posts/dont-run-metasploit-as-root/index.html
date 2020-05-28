@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dont run Metasploit as root.. // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="Dont run Metasploit as root.." />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Dont run Metasploit as root..</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/dont-run-metasploit-as-root/" class="article-date">
+                <time datetime='2017-02-15T08:27:46.000&#43;10:00' itemprop="datePublished">2017-02-15</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>Ah Metasploit. Easily one of my favourite tools. As recently disclosed by <a href="https://twitter.com/justinsteven">@justinsteven</a> there were <a href="https://github.com/justinsteven/advisories/blob/master/2017_metasploit_meterpreter_dir_traversal_bugs.md">vulnerabilities</a> within MSF that mean really bad things could happen if MSF is running as root (default Kali cough).. This post is going to detail my Metasploit setup.</p>
+<p>A few years ago the TDS crew (my CTF team/fellow computer enthusiasts) were talking about how running services like Metasploit as root is generally a bad idea and how we can limit our attack surface by lowering privileges associated with services like these. Even more-so if they are set up on the internet for offensive reasons. Little did we know then Justin would be the one to pop it.</p>
+<p>I personally don&rsquo;t leave Metasploit running on the internet all the time (although I do know people that do) but even for the week or 2 that I&rsquo;m doing an engagement and need it running I try to limit the risk where I can by doing things like:</p>
+<ul>
+<li>Unprivileged users for services</li>
+<li>Throw away machines</li>
+<li>Up to date hosts</li>
+<li>Up to date Metasploit</li>
+</ul>
+<p>Generally, I don&rsquo;t use Kali, it is a fantastic tool when you need offensive tools in strict environments and can only boot up a live CD, but for times where I have my testing machines around I like to use non-Kali OS&rsquo;s. These security principles, can and should be applied to any machine you&rsquo;re using (Kali included) to limit the possibility of getting popped, and if popped limiting the chance of something important getting stolen.</p>
+<h2 id="create-an-unprivileged-user-for-day-to-day-use">Create an unprivileged user for day to day use</h2>
+<p>Firstly, running as root or administrator means that your exposure is far greater should you get popped. So go ahead and create a non-root account on your machine and switch to using that day to day. Elevate your privileges only when you need to either via sudo (with your password) or by switching to the privileged user then dropping out of it. There is no doubt that sudo from a non-root account is safer than running in the context of root all the time; but safer again is a non-sudo approach with a different account altogether with a different set of credentials that can&rsquo;t sudo. Gathering/cracking these credentials increases the time and cost of a would be attacker.</p>
+<h2 id="installing-and-running-metasploit-from-the-unprivileged-account">Installing and running Metasploit from the unprivileged account</h2>
+<p>I like to run Metasploit from master. The steps I take to install MSF differ between MacOS and Linux. Lets walk through the installation process. You don&rsquo;t have to do this if you run Kali so skip ahead to after we have it installed.</p>
+<p>Below are some excerpts from <a href="https://github.com/rapid7/metasploit-framework/wiki/Setting-Up-a-Metasploit-Development-Environment">Linux MSF installation guide</a> and <a href="http://www.darkoperator.com/installing-metasploit-framewor/">MacOS MSF installation guide</a> - Be sure to check these out.</p>
+<p>Install dependencies and clone the MSF repo locally.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ sudo apt-get -y install \
+  autoconf \
+  bison \
+  build-essential \
+  curl \
+  git-core \
+  libapr1 \
+  libaprutil1 \
+  libcurl4-openssl-dev \
+  libgmp3-dev \
+  libpcap-dev \
+  libpq-dev \
+  libreadline6-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libsvn1 \
+  libtool \
+  libxml2 \
+  libxml2-dev \
+  libxslt-dev \
+  libyaml-dev \
+  locate \
+  ncurses-dev \
+  openssl \
+  postgresql \
+  postgresql-contrib \
+  wget \
+  xsel \
+  zlib1g \
+  zlib1g-dev
+$ git clone https://github.com/rapid7/metasploit-framework.git
+</code></pre></div><p>In the past, I have used RVM to get ruby installed and running, because I used octopress for my blog which has different ruby requirements than Metasploit and other ruby tools. However, for the sake of this post I&rsquo;ll stay away from recommending a ruby version management system.</p>
+<p>Without a tested ruby version management system alternative, I ended up running a <code>rvm implode</code> and taking the safer (not really) route by installing the relevant ruby version <code>metasploit-framework/.ruby-version</code> using brew (For Linux, use your package management system).</p>
+<p>This will break other ruby applications you have / use that are dependant on a non-Metasploit version of ruby. Do so at your own risk. As with anything, validate your sources. Be sure to trust the network you are on. Check signatures. Etc.</p>
+<p>This is part of the reason why I&rsquo;ve moved my blog over to Hugo instead of having to run multiple versions of ruby, RVM or rbenv..</p>
+<p>For MacOS users, the brew switch command can be used to change versions pretty painlessly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ brew switch ruby 2.3.3
+</code></pre></div><p>After changing directory to the <code>metasploit-framework</code>, install bundler and the bundled gems</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ gem install bundler
+$ bundle install
+</code></pre></div><p>Set up a PostgreSQL user (the <code>postgresql</code> user if on MacOS or <code>postgres</code> if on linux)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ sudo -u postgresql createuser &lt;msfusername&gt; -dRS
+$ sudo -u postgresql psql -c &#34;ALTER USER &lt;msfusername&gt; with ENCRYPTED PASSWORD &#39;&lt;msfpassword&gt;&#39;;&#34;
+$ sudo -u postgresql createdb --owner &lt;msfusername&gt; &lt;msfdbname&gt;
+</code></pre></div><p>Set up the database.yml file</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">production: &amp;pgsql
+  adapter: postgresql
+  database: &lt;msfdbname&gt;
+  username: &lt;msfusername&gt;
+  password: &lt;msfpassword&gt;
+  host: localhost
+  port: 5432
+  pool: 5
+  timeout: 5
+</code></pre></div><p>Ok great you should now be able to <code>cd</code> to the MSF directory and run a <code>./msfconsole</code> to start up MSF with DB support. MSF isn&rsquo;t running as root nice job! I like to confirm db is connected and functioning with a <code>msf&gt; db_status</code>.</p>
+<h2 id="port-redirection">Port redirection</h2>
+<p>So, running MSF as an unprivileged user you can&rsquo;t bind to ports &lt;1024. However, in the cases where you absolutely need to bind to these ports I recommend using port redirection over elevating to root for execution. This could be as simple as using <code>iptables</code> or <code>pfctl</code> or could get more complicated by standing your listeners up behind an Nginx reverse proxy which serves valid HTTPS certs (thanks <a href="https://twitter.com/letsencrypt">@letsencrypt</a>).</p>
+<p>On a Linux host these commands will redirect ports 80 and 443 to 8080 and 8443.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+$ sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8443
+</code></pre></div><p>On MacOS you could use <code>pfctl</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ sudo sh -c &#34;echo &#39;rdr pass inet proto tcp from any to any port 80 -&gt; &lt;interface ip&gt; port 8080&#39; &gt; /etc/pf.anchors/redirects&#34;
+$ sudo sh -c &#34;echo &#39;rdr pass inet proto tcp from any to any port 443 -&gt; &lt;interface ip&gt; port 8443&#39; &gt;&gt; /etc/pf.anchors/redirects&#34;
+$ sudo pfctl -ef /etc/pf.anchors/redirects
+</code></pre></div><p>As for patching, it should be part of your usual security cycle so I won&rsquo;t go into it here, however, you should now be able to throw in the odd <code>git pull</code> followed by an occasional <code>bundle install</code> from the Metasploit directory to keep MSF up to date with the master repository.</p>
+<p>Thanks for reading. Hopefully this gets you across just how easy it is to setup MSF and have it run as an unprivileged user.</p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#create-an-unprivileged-user-for-day-to-day-use">Create an unprivileged user for day to day use</a></li>
+    <li><a href="#installing-and-running-metasploit-from-the-unprivileged-account">Installing and running Metasploit from the unprivileged account</a></li>
+    <li><a href="#port-redirection">Port redirection</a></li>
+  </ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/metasploit">Metasploit
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/pentesting">Pentesting
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/msf">MSF
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/antivirus-shenanigans/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Antivirus Shenanigans
+        </div>
+    </a>
+    
+    
+    <a href="/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Pivoting with Metasploit Meterpreter and reverse port forwards&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

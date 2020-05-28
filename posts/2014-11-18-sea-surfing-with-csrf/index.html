@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sea Surfing with CSRF // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="Sea Surfing with CSRF" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/2014-11-18-sea-surfing-with-csrf/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Sea Surfing with CSRF</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/2014-11-18-sea-surfing-with-csrf/" class="article-date">
+                <time datetime='2014-11-18T12:59:38.000&#43;11:00' itemprop="datePublished">2014-11-18</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>I had originally intended to do one post that covered both XSS and CSRF, however I decided in the end to break them into two separate posts. This post will be a basic guide to CSRF and as I am a visual learner, a bit of a story that draws a picture in my minds eye about how it all comes together.</p>
+<h3 id="cross-site-request-forgery">Cross-Site Request Forgery</h3>
+<p>CSRF is in a way the opposite of XSS, in that it exploits the trust a web application has in the user. Where as XSS exploits the trust a user has in the web application.</p>
+<h4 id="story-time">Story time..</h4>
+<p>Henry is logged into his bank account while also derping around the internet. He gets a message from his buddy Kevin, who, is actually Boris the angry Russian impersonating his friend.</p>
+<p>In this message, is a link to a website with a sweet way to cook shrimps on the barbie. Henry is hooked. He clicks the link and is taken to a website that Boris controls.</p>
+<p>The source of the website looks like this..</p>
+<pre><code>&lt;html&gt;
+    &lt;title&gt;
+        How to cook great Shrimp! Straya!
+    &lt;/title&gt;
+    &lt;body&gt;
+        &lt;img src=&quot;http://aussiebank.com.au/transfer.do?acct=BorisFromRussia&amp;amount=100000&quot; width=&quot;1&quot; height=&quot;1&quot;&gt;
+        &lt;h1&gt;
+            Page not found
+        &lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>When Henry&rsquo;s browser tries to render this gnarly shrimp recipe, it is actually sending a GET request to his bank transferring his life savings over to Boris.</p>
+<p>All Henry see&rsquo;s is that there was an image that couldn&rsquo;t be loaded. But, more importantly Henry&rsquo;s bank see&rsquo;s a valid get request coming from Henry telling them to transfer the money. Because Henry has authenticated, this appears as a perfectly valid request and is processed accordingly.</p>
+<p>Henry did not live happily ever after.</p>
+<p>The end.</p>
+<p>Boris needed to social engineer Henry for this to work, as the session cookie which AussieBank.com.au uses to verify Henry&rsquo;s identity is not known to Boris. Hence impersonating his friend (again with the trust exploitation..) and sending him a link to something Henry would find interesting was all it took for his browser to send the request with the missing session cookie and transfer the funds.</p>
+<p>There are many more ways to get CSRF to work such as POST requests, or HTTP methods such as PUT or DELETE. One control to prevent these attacks is checking the referrer field in the HTTP request to make sure that the request originated from AussieBank.com.au and not AngryRussian.ru.</p>
+<p>But as is the case with many bugs, if you chained XSS together with CSRF you can sufficiently bypass this control.</p>
+<p>To read more about XSS and CSRF be sure to check out <a href="https://www.owasp.org">https://www.owasp.org</a></p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#cross-site-request-forgery">Cross-Site Request Forgery</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/beginner">beginner
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/web">web
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/offence">offence
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/2014-11-22-openpgp-and-mac-os-x/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            OpenPGP and Mac OS X
+        </div>
+    </a>
+    
+    
+    <a href="/posts/2014-11-08-xss-for-beginners/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">XSS for beginners!&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

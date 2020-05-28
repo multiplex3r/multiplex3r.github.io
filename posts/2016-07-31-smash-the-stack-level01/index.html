@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smash the Stack - IO Level 1 // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="Smash the Stack - IO Level 1" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/2016-07-31-smash-the-stack-level01/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Smash the Stack - IO Level 1</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/2016-07-31-smash-the-stack-level01/" class="article-date">
+                <time datetime='2016-07-31T21:17:55.000&#43;11:00' itemprop="datePublished">2016-07-31</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>This is going to be a series of write ups on the smash the stack IO series of challenges. I&rsquo;ll try to be as detailed as I can even for the easier challenges as it will help me lift my GDB game and serve as a reference for linux debugging. There are going to be spoilers so don&rsquo;t read this is you haven&rsquo;t solved the challenge without giving it a solid crack. Also, you won&rsquo;t find the keys here :)</p>
+<p>Fairly easy challenge. Connect to the target via ssh - <code>ssh level1@io.netgarage.org</code> using the password level1.</p>
+<p>From here we need to move to the challenge directory in <code>/levels</code></p>
+<p>We can see that the level 1 challenge is there waiting for us <code>/levels/level01</code></p>
+<p>From here I did some basic enumeration on the file as this challenge doesn&rsquo;t have any source code available.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">level1@io:/levels$ file level01
+level01: setuid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), statically linked, not stripped
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">level1@io:/levels$ strings level01
+,0&lt;    w
+Enter the 3 digit passcode to enter: Congrats you found it, now read the password for level2 from /home/level2/.pass
+/bin/sh
+.symtab
+.strtab
+.shstrtab
+.text
+.lib
+.data
+level01.asm
+fscanf
+skipwhite
+doit
+exitscanf
+YouWin
+exit
+puts
+main
+prompt1
+prompt2
+shell
+_start
+__bss_start
+_edata
+_end
+</code></pre></div><p>Ok so nothing super exciting here - a pretty standard linux binary.</p>
+<p>Next I&rsquo;ll run objdump on the binary to see what the assembly for it looks like.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">level1@io:/levels$ objdump -d level01
+
+level01:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+08048080 &lt;_start&gt;:
+8048080:    68 28 91 04 08           push   $0x8049128
+8048085:    e8 85 00 00 00           call   804810f &lt;puts&gt;
+804808a:    e8 10 00 00 00           call   804809f &lt;fscanf&gt;
+804808f:    3d 0f 01 00 00           cmp    $0x10f,%eax
+8048094:    0f 84 42 00 00 00        je     80480dc &lt;YouWin&gt;
+804809a:    e8 64 00 00 00           call   8048103 &lt;exit&gt;
+</code></pre></div><p>Ok, so we can see the answer here. Let&rsquo;s fire up the debugger and step through what&rsquo;s happening.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">level1@io:/levels$ gdb -x /usr/share/gdbinit
+gdb$ source /usr/local/peda/peda.py
+gdb-peda$ file level01
+Reading symbols from level01...(no debugging symbols found)...done.
+gdb-peda$ disas main
+Dump of assembler code for function main:
+0x08048080 &lt;+0&gt;:    push   0x8049128
+0x08048085 &lt;+5&gt;:    call   0x804810f
+0x0804808a &lt;+10&gt;:    call   0x804809f
+0x0804808f &lt;+15&gt;:    cmp    eax,0x10f
+0x08048094 &lt;+20&gt;:    je     0x80480dc
+0x0804809a &lt;+26&gt;:    call   0x8048103
+End of assembler dump.
+</code></pre></div><p>Ok so similar output here as what we saw with objdump. Lets set a break point at main so we can step through execution.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdb-peda$ break main
+Breakpoint 1 at 0x8048080
+gdb-peda$ run
+Starting program: /levels/level01 level01
+[----------------------------------registers-----------------------------------]
+EAX: 0x0
+EBX: 0x0
+ECX: 0x0
+EDX: 0x0
+ESI: 0x0
+EDI: 0x0
+EBP: 0x0
+ESP: 0xbffffd30 --&gt; 0x2
+EIP: 0x8048080 (&lt;main&gt;:    push   0x8049128)
+EFLAGS: 0x202 (carry parity adjust zero sign trap INTERRUPT direction overflow)
+[-------------------------------------code-------------------------------------]
+    0x804807a:    add    BYTE PTR [eax],al
+    0x804807c:    add    BYTE PTR [eax],al
+    0x804807e:    add    BYTE PTR [eax],al
+=&gt; 0x8048080 &lt;main&gt;:    push   0x8049128
+    0x8048085 &lt;main+5&gt;:    call   0x804810f
+    0x804808a &lt;main+10&gt;:    call   0x804809f
+    0x804808f &lt;main+15&gt;:    cmp    eax,0x10f
+    0x8048094 &lt;main+20&gt;:    je     0x80480dc
+[------------------------------------stack-------------------------------------]
+0000| 0xbffffd30 --&gt; 0x2
+0004| 0xbffffd34 --&gt; 0xbffffe56 (&#34;/levels/level01&#34;)
+0008| 0xbffffd38 --&gt; 0xbffffe66 (&#34;level01&#34;)
+0012| 0xbffffd3c --&gt; 0x0
+0016| 0xbffffd40 --&gt; 0xbffffe6e (&#34;SHELL=/bin/bash&#34;)
+0020| 0xbffffd44 --&gt; 0xbffffe7e (&#34;TERM=xterm-256color&#34;)
+0024| 0xbffffd48 --&gt; 0xbffffe92 (&#34;SSH_TTY=/dev/pts/12&#34;)
+0028| 0xbffffd4c --&gt; 0xbffffea6 (&#34;USER=level1&#34;)
+[------------------------------------------------------------------------------]
+Legend: code, data, rodata, value
+
+Breakpoint 1, 0x08048080 in main ()
+</code></pre></div><p>First the program pushes some value onto the stack. We can see what this value is using GDB&rsquo;s examine function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdb-peda$ x 0x8049128
+0x8049128:    &#34;Enter the 3 digit passcode to enter: Congrats you found it, now read the password for level2 from /home/level2/.pass\n/bin/sh&#34;
+</code></pre></div><p>Ok great, next we step through this using the <code>step</code> or <code>s</code> command.</p>
+<p>There are 2 calls to functions. The first function, we can tell from our objdump output earlier is a call to <code>puts</code>. This will print out the program output <code>Enter the 3 digit passcode to enter:</code></p>
+<p>Next it calls the <code>fscanf</code> function which takes our value via STDIN and pushes it onto the stack and places it in the ECX register.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">gdb-peda$
+123
+[----------------------------------registers-----------------------------------]
+EAX: 0x4
+EBX: 0x0
+ECX: 0xbfffed28 (&#34;123\n&#34;)
+EDX: 0x1000
+ESI: 0x0
+EDI: 0x0
+EBP: 0x0
+ESP: 0xbfffed28 (&#34;123\n&#34;)
+EIP: 0x80480b8 --&gt; 0xdb31e689
+EFLAGS: 0x286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)
+[-------------------------------------code-------------------------------------]
+    0x80480af:    mov    ecx,esp
+    0x80480b1:    mov    edx,0x1000
+    0x80480b6:    int    0x80
+=&gt; 0x80480b8:    mov    esi,esp
+    0x80480ba:    xor    ebx,ebx
+    0x80480bc:    xor    eax,eax
+    0x80480be:    lods   al,BYTE PTR ds:[esi]
+    0x80480bf:    cmp    al,0x20
+[------------------------------------stack-------------------------------------]
+0000| 0xbfffed28 (&#34;123\n&#34;)
+0004| 0xbfffed2c --&gt; 0x0
+0008| 0xbfffed30 --&gt; 0x0
+0012| 0xbfffed34 --&gt; 0x0
+0016| 0xbfffed38 --&gt; 0x0
+0020| 0xbfffed3c --&gt; 0x0
+0024| 0xbfffed40 --&gt; 0x0
+0028| 0xbfffed44 --&gt; 0x0
+[------------------------------------------------------------------------------]
+Legend: code, data, rodata, value
+0x080480b8 in fscanf ()
+</code></pre></div><p>If these values are the same it will jump to the youwin function via the JE (jump if equal) instruction. This function will drop us into our level 2 shell!</p>
+<p>Lets re-run this binary outside of the debugger with our correct answer and see what happens.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">level1@io:/levels$ ./level01
+Enter the 3 digit passcode to enter: &lt;reacted&gt;
+Congrats you found it, now read the password for level2 from /home/level2/.pass
+sh-4.3$ cat /home/level2/.pass
+&lt;redacted&gt;
+</code></pre></div><p>Happy days! We have the flag for the next level!</p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents"></nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/io">IO
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/smash-the-stack">Smash the Stack
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Pivoting with Metasploit Meterpreter and reverse port forwards
+        </div>
+    </a>
+    
+    
+    <a href="/posts/2016-01-31-sectalks-0x00-workspaces-and-you/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">SecTalks 0x00 - Metasploit Workspaces and you!&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

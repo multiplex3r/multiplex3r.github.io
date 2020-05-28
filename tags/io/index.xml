@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IO on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/io/</link>
+    <description>Recent content in IO on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 31 Jul 2016 21:17:55 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Smash the Stack - IO Level 1</title>
+      <link>https://multiplex3r.github.io/posts/2016-07-31-smash-the-stack-level01/</link>
+      <pubDate>Sun, 31 Jul 2016 21:17:55 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2016-07-31-smash-the-stack-level01/</guid>
+      <description>&lt;p&gt;This is going to be a series of write ups on the smash the stack IO series of challenges. I&amp;rsquo;ll try to be as detailed as I can even for the easier challenges as it will help me lift my GDB game and serve as a reference for linux debugging. There are going to be spoilers so don&amp;rsquo;t read this is you haven&amp;rsquo;t solved the challenge without giving it a solid crack. Also, you won&amp;rsquo;t find the keys here :)&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

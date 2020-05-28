@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CTF on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/ctf/</link>
+    <description>Recent content in CTF on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 01 Nov 2014 21:34:09 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CTF mode activate!</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-01-ctf-mode-activate/</link>
+      <pubDate>Sat, 01 Nov 2014 21:34:09 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-01-ctf-mode-activate/</guid>
+      <description>&lt;p&gt;I love CTF&amp;rsquo;s! And I love my MBP. So it&amp;rsquo;s logical to assume that I love CTFing from my MBP. These are some *cough opsec* of the things I do to secure my MBP when I&amp;rsquo;m attached to a CTF network. You could use these tips to help you harden your $(laptop of choice) when you&amp;rsquo;re connected to any potentially hostile network.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

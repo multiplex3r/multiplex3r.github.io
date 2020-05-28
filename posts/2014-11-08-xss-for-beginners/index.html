@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XSS for beginners! // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="XSS for beginners!" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/2014-11-08-xss-for-beginners/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">XSS for beginners!</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/2014-11-08-xss-for-beginners/" class="article-date">
+                <time datetime='2014-11-08T17:00:25.000&#43;11:00' itemprop="datePublished">2014-11-08</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>This post is going to go into one of the most common web attacks and how you can try it for yourself. The attack is the notorious Cross-site Scripting attack. I say notorious, because it&rsquo;s 2014. Why are we still seeing this out in the wild? Sanitise your inputs people!</p>
+<h3 id="cross-site-scripting">Cross-site Scripting</h3>
+<p>In the Web 2.0 world we live in today, there are not many people who are in infosec and haven&rsquo;t heard about XSS. So, what exactly IS cross-site scripting you may ask? Cross-site scripting or XSS is a vulnerability which allows an attacker to inject Javascript into web pages which is then executed by the users browser.</p>
+<p>A typical use case for XSS, would be to steal session cookies; allowing the attacker to log-in to a web application as the victim. Or to load some other payload or malware on to the victims machine.</p>
+<p>XSS is bad.</p>
+<p>Here is an example of some PHP code that is vulnerable to XSS via the username parameter.</p>
+<pre><code>&lt;?php
+$username = $_REQUEST ['username'];
+?&gt;
+
+&lt;html&gt;
+    &lt;title&gt;
+        XSS Example
+    &lt;/title&gt;
+    &lt;body&gt;
+        Hello, &lt;?php echo $username; ?&gt;!
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>To have a play with the above code, have a system with PHP installed (you can get it from <a href="http://php.net">here</a>). Then save the code snippit in a new directory to a file called <code>index.php</code>. You will then be able to execute the following command <code>php -S 127.0.0.1:8080 -t .</code> from inside the new directory and browse to it.</p>
+<p>Modify the url to something similar changing &lsquo;multiplex3r&rsquo; to your username or XSS payload of choice.</p>
+<p><img src="https://multiplex3r.github.io/images/10_11_2014/fig1.png" alt="fig1"></p>
+<p>This will allow you to change the username parameter to <code>&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</code> to demo a basic XSS payload..</p>
+<p><img src="https://multiplex3r.github.io/images/10_11_2014/fig2.png" alt="fig2"></p>
+<p>Remember, hack ethically and don&rsquo;t pwn stuff you don&rsquo;t own!</p>
+<p>NOTE: Please use your $(browser) no-script addon. It&rsquo;s really great and stops the blind execution of Javascript!</p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#cross-site-scripting">Cross-site Scripting</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/beginner">beginner
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/web">web
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/offence">offence
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/2014-11-18-sea-surfing-with-csrf/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Sea Surfing with CSRF
+        </div>
+    </a>
+    
+    
+    <a href="/posts/2014-11-01-ctf-mode-activate/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">CTF mode activate!&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenPGP and Mac OS X // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="OpenPGP and Mac OS X" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/2014-11-22-openpgp-and-mac-os-x/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">OpenPGP and Mac OS X</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/2014-11-22-openpgp-and-mac-os-x/" class="article-date">
+                <time datetime='2014-11-22T14:37:10.000&#43;11:00' itemprop="datePublished">2014-11-22</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>Over the last few months I&rsquo;ve been experimenting with Mac OS X&rsquo;s Mail.app and GPGSuite for Mac. During the period of the Beta and Developer previews of OS X Yosemite, GPGMail was unusable and crashed Mail. This sent me on a search for either a better Mail client on OS X or a better way to do OpenPGP on OS X. This is a post about my journey to the command line and back again.</p>
+<p>People keep telling me Mac Mail is a pretty ordinary mail client. I&rsquo;ve stuck with it for a while because it&rsquo;s integrated into OS X so well. Also, it&rsquo;s not fixing something by throwing yet more software at a problem. Plus (and this is a big plus) it&rsquo;s pretty. On Retina screens it looks amazing. I&rsquo;ve used a lot of the other mail clients out there, and there isn&rsquo;t one I&rsquo;ve found that looks nearly as good.</p>
+<p>So Mac Mail is pretty and it has the guys from <a href="https://gpgtools.org">GPGTools</a> doing it&rsquo;s OpenPGP addon. Sounds great right? Perfect mail client? Wrong. I was sending signed email, no problem if you had Mail+GPGTools you could see my valid signature automatically. I could send encrypted email WITH attachments. If you had Mail+GPGTools it would work a treat!</p>
+<p>Unfortunately, or fortunely ;) not everyone uses Mail+GPGTools. So I set about finding a better way. I dabbled with command line GPGTools. But that felt too strange coming from the work flow I had been using where there is almost no extra effort to sign/encrypt. And I liked that work flow. So CLI was out.</p>
+<p>THUNDERBIRD. I used to use Linux as a primary OS before I got my MBP. SURELY Thunderbird was still a valid option. Pop Enigmail into it and we&rsquo;re off right? Wrong. Thunderbird looks so bad after using Mail for what seems like forever. And the formatting of text? I think it&rsquo;s important that it looks good being that we communicate with people so much over email. Unfortunately Thunderbird just didn&rsquo;t check this box for me.</p>
+<p>Was I doomed to choose between Security or Usability? Well I was reluctantly going to go with Thunderbird until I came across <a href="http://notes.jerzygangi.com/the-best-pgp-tutorial-for-mac-os-x-ever/">THIS</a> post about binding keys to specific OpenPGP service functions. Hmm this looks promising.</p>
+<p><img src="/images/23_11_2014/fig1.png" alt="fig1"></p>
+<p>I followed the guide assigned some keybinds and then BAM. I can now sign my mail inline without using the GPGMail addon. And to top it off, it works on encrypted files. I can email anyone with any client and it doesn&rsquo;t tear the protocol apart trying to get it to them.</p>
+<p>I get security and usability :)</p>
+<pre><code>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+An email signed by me :)
+
+Thanks and regards,
+Aaron Fenwick
+
+Twitter: @multiplex3r
+Blog: https://multiplex3r.github.io
+Email: multiplex3r@gmail.com
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG/MacGPG2 v2.0.26
+Comment: GPGTools - https://gpgtools.org
+
+iQIcBAEBCgAGBQJUcRAfAAoJEGcWbKj0Fcy1ORAP/1JFOsrLJiT0XHZJqs0cO90J
+RBdYqgEs1Gp7oz/hh1VcVduUJFa3cnKR9nzAcHKvrh8PFD/7x+ugX6ihIBlXSzMg
+fAFTXAqG1kaCKnHj1Mrlvelnz/ZsXgRCQ8eRQhc+ga4Mwd4SNWtToxYUJpbi06/E
+/MVNkNJGvc8GLuR4XE65zNTGZf6+3xLw2Hm3h4p/1NCrgVpEYVaVIA1c+z/wHllj
+jhVmWANL4pRu2DlW59CGPi0I6lvTmogrW+qgd/A45OxOcpWjZRfdqqXie8+deZlX
+Takvrwj9/GuXCva3xP9qAsFlsR2BbL9/zeAeCQdZSmVlO8FZVyQXjKD3VxnUOsjQ
+9MKqFUED2iu/PbJkrI5K8gsH0kd8gfX9NXSbLhtUKEu6EXKA6PrE+HPJ3MHV7tFJ
+FLBu4IgeBiDD0XSugLyCYlwwux0/vgwLqWjxxwbnUwi7z/XyBDGBigCQTaV8AZ1e
+w3Js7YTfmoWtWAKqhkNxsynseIGEhpzncf9FTBWSJwq1q3Hhv1CUdWa3gXLwHc9u
+WF7QTQZU45VgEwi0JSZjz/mP2SrUbkhvcRo4VOo6/EDK2PU0FDoz9thzXSuFgvbu
+CECpdg0N1Tx/TYsbyZlJtUjKF6oyYI60kQ3snj41vaoWGI4DY+xTEf9CbKrIe7h3
+NTjnknJCB09ppI9W7mQZ
+=wYaO
+-----END PGP SIGNATURE-----
+</code></pre><p>So, if you&rsquo;re stuck with this decision, I highly recommend the above guide. My workflow was largely unchanged. Plus I like the look of signatures in the body of emails. So this is the perfect solution for me.</p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents"></nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/defence">defence
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/beginner">beginner
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/guide">guide
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/privacy">privacy
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/2015-02-15-web-for-pentester-xss/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Web for Pentester XSS!
+        </div>
+    </a>
+    
+    
+    <a href="/posts/2014-11-18-sea-surfing-with-csrf/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Sea Surfing with CSRF&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

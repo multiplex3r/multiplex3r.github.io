@@ -5,9 +5,226 @@
     <link>https://multiplex3r.github.io/tags/</link>
     <description>Recent content in Tags on multiplex3r.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 31 Aug 2017 08:27:46 +1000</lastBuildDate>
     
 	<atom:link href="https://multiplex3r.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AntiVirus</title>
+      <link>https://multiplex3r.github.io/tags/antivirus/</link>
+      <pubDate>Thu, 31 Aug 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/antivirus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pentesting</title>
+      <link>https://multiplex3r.github.io/tags/pentesting/</link>
+      <pubDate>Thu, 31 Aug 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/pentesting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Metasploit</title>
+      <link>https://multiplex3r.github.io/tags/metasploit/</link>
+      <pubDate>Wed, 15 Feb 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/metasploit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MSF</title>
+      <link>https://multiplex3r.github.io/tags/msf/</link>
+      <pubDate>Wed, 15 Feb 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/msf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Penetration Testing</title>
+      <link>https://multiplex3r.github.io/tags/penetration-testing/</link>
+      <pubDate>Fri, 14 Oct 2016 11:12:22 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/penetration-testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IO</title>
+      <link>https://multiplex3r.github.io/tags/io/</link>
+      <pubDate>Sun, 31 Jul 2016 21:17:55 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/io/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Smash the Stack</title>
+      <link>https://multiplex3r.github.io/tags/smash-the-stack/</link>
+      <pubDate>Sun, 31 Jul 2016 21:17:55 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/smash-the-stack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>beginner</title>
+      <link>https://multiplex3r.github.io/tags/beginner/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/beginner/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>code injection</title>
+      <link>https://multiplex3r.github.io/tags/code-injection/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/code-injection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>command injection</title>
+      <link>https://multiplex3r.github.io/tags/command-injection/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/command-injection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>directory traversal</title>
+      <link>https://multiplex3r.github.io/tags/directory-traversal/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/directory-traversal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>File Upload</title>
+      <link>https://multiplex3r.github.io/tags/file-upload/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/file-upload/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LDAP attacks</title>
+      <link>https://multiplex3r.github.io/tags/ldap-attacks/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/ldap-attacks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lfi</title>
+      <link>https://multiplex3r.github.io/tags/lfi/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/lfi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rfi</title>
+      <link>https://multiplex3r.github.io/tags/rfi/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/rfi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://multiplex3r.github.io/tags/web/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>XML attacks</title>
+      <link>https://multiplex3r.github.io/tags/xml-attacks/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/xml-attacks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>offence</title>
+      <link>https://multiplex3r.github.io/tags/offence/</link>
+      <pubDate>Mon, 16 Feb 2015 10:14:43 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/offence/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sqli</title>
+      <link>https://multiplex3r.github.io/tags/sqli/</link>
+      <pubDate>Mon, 16 Feb 2015 10:14:43 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/sqli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xss</title>
+      <link>https://multiplex3r.github.io/tags/xss/</link>
+      <pubDate>Sun, 15 Feb 2015 17:53:09 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/xss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>defence</title>
+      <link>https://multiplex3r.github.io/tags/defence/</link>
+      <pubDate>Sat, 22 Nov 2014 14:37:10 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/defence/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>guide</title>
+      <link>https://multiplex3r.github.io/tags/guide/</link>
+      <pubDate>Sat, 22 Nov 2014 14:37:10 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/guide/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>privacy</title>
+      <link>https://multiplex3r.github.io/tags/privacy/</link>
+      <pubDate>Sat, 22 Nov 2014 14:37:10 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>https://multiplex3r.github.io/tags/ctf/</link>
+      <pubDate>Sat, 01 Nov 2014 21:34:09 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

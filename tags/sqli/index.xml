@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sqli on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/sqli/</link>
+    <description>Recent content in sqli on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 16 Feb 2015 10:14:43 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/sqli/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web for Pentester SQLi</title>
+      <link>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</link>
+      <pubDate>Mon, 16 Feb 2015 10:14:43 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</guid>
+      <description>&lt;p&gt;Welcome back to another installment of Web for Pentester I. This post is going to go over the SQL Injection examples. Manually iterating over SQLi can be quite a complex subject, however, thankfully there are many tools availble to help us in this endeavour. Personally, I use SQLMap and Burp Suite pro.&lt;/p&gt;
+&lt;p&gt;Warning! Spoilers ahead!&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

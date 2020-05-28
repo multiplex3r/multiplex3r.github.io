@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Metasploit on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/metasploit/</link>
+    <description>Recent content in Metasploit on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 15 Feb 2017 08:27:46 +1000</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/metasploit/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dont run Metasploit as root..</title>
+      <link>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</link>
+      <pubDate>Wed, 15 Feb 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</guid>
+      <description>&lt;p&gt;Ah Metasploit. Easily one of my favourite tools. As recently disclosed by &lt;a href=&#34;https://twitter.com/justinsteven&#34;&gt;@justinsteven&lt;/a&gt; there were &lt;a href=&#34;https://github.com/justinsteven/advisories/blob/master/2017_metasploit_meterpreter_dir_traversal_bugs.md&#34;&gt;vulnerabilities&lt;/a&gt; within MSF that mean really bad things could happen if MSF is running as root (default Kali cough).. This post is going to detail my Metasploit setup.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pivoting with Metasploit Meterpreter and reverse port forwards</title>
+      <link>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</link>
+      <pubDate>Fri, 14 Oct 2016 11:12:22 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</guid>
+      <description>&lt;p&gt;This post is not a CTF series post, but something I&amp;rsquo;ve needed time and again on various network penetration tests, so I thought I would write this up as a summary for future reference, and a guide for others.&lt;/p&gt;
+&lt;p&gt;In the past I&amp;rsquo;ve pivoted using Meterpreter, autoroute, and a port forward combined with a bind payload on my &amp;gt;=2nd hop target. However, reverse port forwards have been added to MSF so I thought I would give them a crack :)&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

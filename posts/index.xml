@@ -20,5 +20,120 @@
 &lt;p&gt;This post will go into some opsec considerations as it relates to high value files. Opsec related tactics, techniques and procedures vary greatly between hackers, but for what it&amp;rsquo;s worth I like to consider the below when I think about high value files and lateral movement. I like to leave an environment at least as secure as it was when I went in.&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>Antivirus Shenanigans</title>
+      <link>https://multiplex3r.github.io/posts/antivirus-shenanigans/</link>
+      <pubDate>Thu, 31 Aug 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/antivirus-shenanigans/</guid>
+      <description>&lt;p&gt;At &lt;a href=&#34;https://www.sectalks.org/melbourne/&#34;&gt;SecTalks Melbourne 0x10&lt;/a&gt; I presented a few slides from my Malware Reverse Engineering conference presentation from a few months ago. I talked through reasons why as penetration testers we want to avoid being detected (longer time to find the sweet loot etc). And how we can use AV evasion to assist in the effort of remaining undetected. After which we did a workshop and challenge on the topic. Fun times :)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Dont run Metasploit as root..</title>
+      <link>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</link>
+      <pubDate>Wed, 15 Feb 2017 08:27:46 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/dont-run-metasploit-as-root/</guid>
+      <description>&lt;p&gt;Ah Metasploit. Easily one of my favourite tools. As recently disclosed by &lt;a href=&#34;https://twitter.com/justinsteven&#34;&gt;@justinsteven&lt;/a&gt; there were &lt;a href=&#34;https://github.com/justinsteven/advisories/blob/master/2017_metasploit_meterpreter_dir_traversal_bugs.md&#34;&gt;vulnerabilities&lt;/a&gt; within MSF that mean really bad things could happen if MSF is running as root (default Kali cough).. This post is going to detail my Metasploit setup.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pivoting with Metasploit Meterpreter and reverse port forwards</title>
+      <link>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</link>
+      <pubDate>Fri, 14 Oct 2016 11:12:22 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</guid>
+      <description>&lt;p&gt;This post is not a CTF series post, but something I&amp;rsquo;ve needed time and again on various network penetration tests, so I thought I would write this up as a summary for future reference, and a guide for others.&lt;/p&gt;
+&lt;p&gt;In the past I&amp;rsquo;ve pivoted using Meterpreter, autoroute, and a port forward combined with a bind payload on my &amp;gt;=2nd hop target. However, reverse port forwards have been added to MSF so I thought I would give them a crack :)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Smash the Stack - IO Level 1</title>
+      <link>https://multiplex3r.github.io/posts/2016-07-31-smash-the-stack-level01/</link>
+      <pubDate>Sun, 31 Jul 2016 21:17:55 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2016-07-31-smash-the-stack-level01/</guid>
+      <description>&lt;p&gt;This is going to be a series of write ups on the smash the stack IO series of challenges. I&amp;rsquo;ll try to be as detailed as I can even for the easier challenges as it will help me lift my GDB game and serve as a reference for linux debugging. There are going to be spoilers so don&amp;rsquo;t read this is you haven&amp;rsquo;t solved the challenge without giving it a solid crack. Also, you won&amp;rsquo;t find the keys here :)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SecTalks 0x00 - Metasploit Workspaces and you!</title>
+      <link>https://multiplex3r.github.io/posts/2016-01-31-sectalks-0x00-workspaces-and-you/</link>
+      <pubDate>Sun, 31 Jan 2016 12:31:58 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2016-01-31-sectalks-0x00-workspaces-and-you/</guid>
+      <description>This week I presented some of my Metasploit workflow at SecTalks Melbourne 0x00. Here are the slides from the presentation.
+Cheers
+multi</description>
+    </item>
+    
+    <item>
+      <title>Web for Pentester ../../Directory%20Traversal</title>
+      <link>https://multiplex3r.github.io/posts/2015-10-13-web-for-pentester-directory-traversal/</link>
+      <pubDate>Tue, 13 Oct 2015 10:32:00 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-10-13-web-for-pentester-directory-traversal/</guid>
+      <description>&lt;p&gt;This post is going to cover the Web for Pentester directory traversal examples. I am going to go through the source code of the examples and explain the vulnerabilities and how to exploit them.&lt;/p&gt;
+&lt;p&gt;Here be spoilers! Don&amp;rsquo;t read on if you don&amp;rsquo;t want to see the answers.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Web for Pentester SQLi</title>
+      <link>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</link>
+      <pubDate>Mon, 16 Feb 2015 10:14:43 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-02-16-web-for-pentester-sqli/</guid>
+      <description>&lt;p&gt;Welcome back to another installment of Web for Pentester I. This post is going to go over the SQL Injection examples. Manually iterating over SQLi can be quite a complex subject, however, thankfully there are many tools availble to help us in this endeavour. Personally, I use SQLMap and Burp Suite pro.&lt;/p&gt;
+&lt;p&gt;Warning! Spoilers ahead!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Web for Pentester XSS!</title>
+      <link>https://multiplex3r.github.io/posts/2015-02-15-web-for-pentester-xss/</link>
+      <pubDate>Sun, 15 Feb 2015 17:53:09 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2015-02-15-web-for-pentester-xss/</guid>
+      <description>Hi Y&amp;rsquo;all! Sorry, it&amp;rsquo;s been a long while since my last post.. I&amp;rsquo;ve been doing CTP and changing jobs and what not, so been pretty busy. This post is about the challenge series Web for Pentester specifically the XSS challenges, made by Louis Nyffenegger @ PentesterLab.
+Beware, spoilers!
+So you want to get into web apps? Well, PentesterLab is a place for you to go and learn enough Web App Kung Fu to get started.</description>
+    </item>
+    
+    <item>
+      <title>OpenPGP and Mac OS X</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-22-openpgp-and-mac-os-x/</link>
+      <pubDate>Sat, 22 Nov 2014 14:37:10 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-22-openpgp-and-mac-os-x/</guid>
+      <description>&lt;p&gt;Over the last few months I&amp;rsquo;ve been experimenting with Mac OS X&amp;rsquo;s Mail.app and GPGSuite for Mac. During the period of the Beta and Developer previews of OS X Yosemite, GPGMail was unusable and crashed Mail. This sent me on a search for either a better Mail client on OS X or a better way to do OpenPGP on OS X. This is a post about my journey to the command line and back again.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Sea Surfing with CSRF</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-18-sea-surfing-with-csrf/</link>
+      <pubDate>Tue, 18 Nov 2014 12:59:38 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-18-sea-surfing-with-csrf/</guid>
+      <description>&lt;p&gt;I had originally intended to do one post that covered both XSS and CSRF, however I decided in the end to break them into two separate posts. This post will be a basic guide to CSRF and as I am a visual learner, a bit of a story that draws a picture in my minds eye about how it all comes together.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>XSS for beginners!</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-08-xss-for-beginners/</link>
+      <pubDate>Sat, 08 Nov 2014 17:00:25 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-08-xss-for-beginners/</guid>
+      <description>&lt;p&gt;This post is going to go into one of the most common web attacks and how you can try it for yourself. The attack is the notorious Cross-site Scripting attack. I say notorious, because it&amp;rsquo;s 2014. Why are we still seeing this out in the wild? Sanitise your inputs people!&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CTF mode activate!</title>
+      <link>https://multiplex3r.github.io/posts/2014-11-01-ctf-mode-activate/</link>
+      <pubDate>Sat, 01 Nov 2014 21:34:09 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2014-11-01-ctf-mode-activate/</guid>
+      <description>&lt;p&gt;I love CTF&amp;rsquo;s! And I love my MBP. So it&amp;rsquo;s logical to assume that I love CTFing from my MBP. These are some *cough opsec* of the things I do to secure my MBP when I&amp;rsquo;m attached to a CTF network. You could use these tips to help you harden your $(laptop of choice) when you&amp;rsquo;re connected to any potentially hostile network.&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>

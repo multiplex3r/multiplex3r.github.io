@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Penetration Testing on multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/tags/penetration-testing/</link>
+    <description>Recent content in Penetration Testing on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 14 Oct 2016 11:12:22 +1100</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/tags/penetration-testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pivoting with Metasploit Meterpreter and reverse port forwards</title>
+      <link>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</link>
+      <pubDate>Fri, 14 Oct 2016 11:12:22 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/2016-10-14-pivoting-with-meterpreter-and-reverse-port-forwards/</guid>
+      <description>&lt;p&gt;This post is not a CTF series post, but something I&amp;rsquo;ve needed time and again on various network penetration tests, so I thought I would write this up as a summary for future reference, and a guide for others.&lt;/p&gt;
+&lt;p&gt;In the past I&amp;rsquo;ve pivoted using Meterpreter, autoroute, and a port forward combined with a bind payload on my &amp;gt;=2nd hop target. However, reverse port forwards have been added to MSF so I thought I would give them a crack :)&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
