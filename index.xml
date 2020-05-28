@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>multiplex3r.github.io</title>
+    <link>https://multiplex3r.github.io/</link>
+    <description>Recent content on multiplex3r.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 28 May 2020 16:28:39 +1000</lastBuildDate>
+    
+	<atom:link href="https://multiplex3r.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Got the NTDS.dit. Now what?</title>
+      <link>https://multiplex3r.github.io/posts/got_the_ntds_dit_now_what/</link>
+      <pubDate>Thu, 28 May 2020 16:28:39 +1000</pubDate>
+      
+      <guid>https://multiplex3r.github.io/posts/got_the_ntds_dit_now_what/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://multiplex3r.github.io/images/vault.jpeg&#34; alt=&#34;Vault&#34;&gt;&lt;/p&gt;
+&lt;p&gt;This post will go into some opsec considerations as it relates to high value files. Opsec related tactics, techniques and procedures vary greatly between hackers, but for what it&amp;rsquo;s worth I like to consider the below when I think about high value files and lateral movement. I like to leave an environment at least as secure as it was when I went in.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>https://multiplex3r.github.io/about/</link>
+      <pubDate>Sat, 15 Feb 2014 09:38:14 +1100</pubDate>
+      
+      <guid>https://multiplex3r.github.io/about/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m a Father, Husband, Penetration Tester and Red Teamer. I like computers (most of the time) and drawing.. This blog is my repo of CTF solves, write ups for the videos on my YouTube channel and things I&amp;rsquo;ve learned hacking. I particularly like hardware hacking, electronics, industrial control systems and trying to build software to break other software.&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
